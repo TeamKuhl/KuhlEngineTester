@@ -19,6 +19,9 @@ namespace KuhlEngineTester
     {
         public delegate void emptyFunction();
 
+        Renderer renderer = new Renderer();
+        string uuid;
+
         Texture mBackTexture;
         private int mFPS;
 
@@ -33,9 +36,8 @@ namespace KuhlEngineTester
         private void Form1_Load(object sender, EventArgs e)
         {
             label1.Parent = pictureBox1;
-            Renderer renderer = new Renderer();
             Renderer.newFrame += new Renderer.RenderHandler(rendererEvent);
-            mBackTexture = new Texture(@"C:\Users\Public\Pictures\Sample Pictures\Jellyfish.jpg");
+            mBackTexture = new Texture(@"E:\Eigene Daten\Pictures\rw3\current-rw3.jpg");
             mBackTexture.Stretch = true;
 
             renderer.Width = 300;
@@ -45,18 +47,19 @@ namespace KuhlEngineTester
 
             renderer.Start();
 
-            string uuid = renderer.CreateItem();
+            uuid = renderer.CreateItem();
 
             Item item = renderer.GetItem(uuid);
 
-            item.Texture = new Texture(@"C:\Users\Public\Pictures\Sample Pictures\Jellyfish.jpg");
+            item.Texture = new Texture(@"E:\Eigene Daten\Pictures\PNGs 150px\0.png");
+            item.Texture.Stretch = true;
             item.X = 34;
             item.Y = 68;
-            item.Width = 100;
-            item.Height = 88;
+            item.Width = 15;
+            item.Height = 15;
             item.Visible = true;
 
-            renderer.SetItem(uuid, item);
+            renderer.SetItem(uuid, item);              
 
         }
 
@@ -122,6 +125,16 @@ namespace KuhlEngineTester
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             Environment.Exit(0);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            for (int i = 15; i < 150; i++)
+            {
+                renderer.SetItemSize(uuid, i, i);
+                Application.DoEvents();
+                Thread.Sleep(100);
+            }
         }
     }
 }
