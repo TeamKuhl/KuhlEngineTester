@@ -19,10 +19,10 @@ namespace KuhlEngineTester
     {
         public delegate void emptyFunction();
 
-        Renderer renderer = new Renderer();
         Texture mBackTexture;
+        private int mFPS;
 
-        Image gifImage = new Bitmap(@"C:\Users\Roll\Desktop\1.gif");
+        //Image gifImage = new Bitmap(@"C:\Users\Roll\Desktop\1.gif");
         int currentFrame = -1;
 
         public Form1()
@@ -32,16 +32,52 @@ namespace KuhlEngineTester
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            label1.Parent = pictureBox1;
+            Renderer renderer = new Renderer();
             Renderer.newFrame += new Renderer.RenderHandler(rendererEvent);
-            mBackTexture = new Texture(@"E:\Eigene Daten\Pictures\PNGs 150px\0.png");
-            mBackTexture.Stretch = false;
-            renderer.initializeMap(300, 200, mBackTexture);
+            mBackTexture = new Texture(@"C:\Users\Public\Pictures\Sample Pictures\Jellyfish.jpg");
+            mBackTexture.Stretch = true;
 
-            //renderer.FPS = 60;
+            renderer.Width = 100;
+            renderer.Height = 100;
+            renderer.FPS = 10;
+            renderer.Background = mBackTexture;
+
+            renderer.Start();
         }
 
-        private void renderGif()
+        private void rendererEvent(Image aFrame)
         {
+            try
+            {
+                if (this.InvokeRequired) this.Invoke(new emptyFunction(delegate()
+                    {
+                        pictureBox1.Width = aFrame.Width;
+                        pictureBox1.Height = aFrame.Height;
+                        pictureBox1.Image = aFrame;
+                        mFPS++;
+                    }));
+            }
+            catch { Environment.Exit(0); }
+
+
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            renderGif();
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            label1.Text = Convert.ToString(mFPS);
+            mFPS = 0;
+        }
+
+
+
+        private void renderGif()
+        {/*
             FrameDimension dimension = new FrameDimension(gifImage.FrameDimensionsList[0]);
             int frameCount = gifImage.GetFrameCount(dimension);
 
@@ -61,33 +97,17 @@ namespace KuhlEngineTester
             pictureBox1.Width = gifImage.Width;
             pictureBox1.Height = gifImage.Height;
             pictureBox1.Image = curGif;
-            
+            */
         }
 
-        private void rendererEvent(Image aFrame, int aWidth, int aHeight)
+        private void label1_Click(object sender, EventArgs e)
         {
-            //pictureBox1.Width = aWidth;
-            //pictureBox1.Height = aHeight;
-            //pictureBox1.Image = aFrame;
-            if (this.InvokeRequired) this.Invoke(new emptyFunction(delegate() { label1.Text = Convert.ToString(Convert.ToInt32(label1.Text) + 1); }));
-                
 
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            renderGif();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show(textBox1.Text);
-        }
-
-        private void timer2_Tick(object sender, EventArgs e)
-        {
-            timer2.Enabled = false;
-            textBox1.Text = Convert.ToString(Convert.ToDouble(label1.Text) / 10);
+            Environment.Exit(0);
         }
     }
 }
