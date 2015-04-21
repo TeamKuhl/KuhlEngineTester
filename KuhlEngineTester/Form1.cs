@@ -42,7 +42,7 @@ namespace KuhlEngineTester
 
             renderer.Width = 300;
             renderer.Height = 300;
-            renderer.FPS = 10;
+            renderer.FPS = 60;
             renderer.Background = mBackTexture;
 
             renderer.Start();
@@ -51,7 +51,7 @@ namespace KuhlEngineTester
 
             Item item = renderer.GetItem(uuid);
 
-            item.Texture = new Texture(@"E:\Eigene Daten\Pictures\PNGs 150px\0.png");
+            item.Texture = new Texture(@"C:\Users\Roll\Desktop\1.gif");
             item.Texture.Stretch = true;
             item.X = 34;
             item.Y = 68;
@@ -133,7 +133,7 @@ namespace KuhlEngineTester
             {
                 renderer.SetItemSize(uuid, i, i);
                 Application.DoEvents();
-                Thread.Sleep(100);
+                Thread.Sleep(10);
             }
         }
     }
