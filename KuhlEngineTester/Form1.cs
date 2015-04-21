@@ -36,6 +36,8 @@ namespace KuhlEngineTester
             mBackTexture = new Texture(@"E:\Eigene Daten\Pictures\PNGs 150px\0.png");
             mBackTexture.Stretch = false;
             renderer.initializeMap(300, 200, mBackTexture);
+
+            //renderer.FPS = 60;
         }
 
         private void renderGif()
