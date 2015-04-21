@@ -38,12 +38,26 @@ namespace KuhlEngineTester
             mBackTexture = new Texture(@"C:\Users\Public\Pictures\Sample Pictures\Jellyfish.jpg");
             mBackTexture.Stretch = true;
 
-            renderer.Width = 100;
-            renderer.Height = 100;
+            renderer.Width = 300;
+            renderer.Height = 300;
             renderer.FPS = 10;
             renderer.Background = mBackTexture;
 
             renderer.Start();
+
+            string uuid = renderer.CreateItem();
+
+            Item item = renderer.GetItem(uuid);
+
+            item.Texture = new Texture(@"C:\Users\Public\Pictures\Sample Pictures\Jellyfish.jpg");
+            item.X = 34;
+            item.Y = 68;
+            item.Width = 100;
+            item.Height = 88;
+            item.Visible = true;
+
+            renderer.SetItem(uuid, item);
+
         }
 
         private void rendererEvent(Image aFrame)
