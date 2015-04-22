@@ -51,12 +51,11 @@ namespace KuhlEngineTester
             Texture wallTexture = new Texture(KuhlEngineTester.Properties.Resources.wall);
             wallTexture.Stretch = false;
 
-            uuid.Add("Player", renderer.CreateItem());
             uuid.Add("WallTop", renderer.CreateItem());
             uuid.Add("WallBottom", renderer.CreateItem());
             uuid.Add("WallRight", renderer.CreateItem());
             uuid.Add("WallLeft", renderer.CreateItem());
-
+            uuid.Add("Player", renderer.CreateItem());
 
             Item item = renderer.GetItem(uuid["WallTop"]);
             item.Texture = wallTexture;
@@ -159,22 +158,45 @@ namespace KuhlEngineTester
             Environment.Exit(0);
         }
 
-        private void Form1_KeyPress(object sender, KeyPressEventArgs e)
+        private void tmrleft_Tick(object sender, EventArgs e)
         {
-            if (e.KeyChar == 'd')
+            Item item = renderer.GetItem(uuid["Player"]);
+            //item.FlipX = false;
+            item.X = item.X + 2;
+            renderer.SetItem(uuid["Player"], item);
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 39)
             {
-                Item item = renderer.GetItem(uuid["Player"]);
-                //item.FlipX = false;
-                item.X = item.X + 32;
-                renderer.SetItem(uuid["Player"], item);
+                tmrleft.Enabled = true;
             }
-            if (e.KeyChar == 'a')
+            if (e.KeyValue == 37)
             {
-                Item item = renderer.GetItem(uuid["Player"]);
-                //item.FlipX = true;
-                item.X = item.X - 32;
-                renderer.SetItem(uuid["Player"], item);
+                tmrright.Enabled = true;
             }
         }
+
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 39)
+            {
+                tmrleft.Enabled = false;
+            }
+            if (e.KeyValue == 37)
+            {
+                tmrright.Enabled = false;
+            }
+        }
+
+        private void tmrright_Tick(object sender, EventArgs e)
+        {
+            Item item = renderer.GetItem(uuid["Player"]);
+            //item.FlipX = false;
+            item.X = item.X - 2;
+            renderer.SetItem(uuid["Player"], item);
+        }
+
     }
 }
