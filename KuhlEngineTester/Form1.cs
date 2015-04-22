@@ -41,7 +41,7 @@ namespace KuhlEngineTester
 
             renderer.Width = 640;
             renderer.Height = 320;
-            renderer.FPS = 100;
+            renderer.FPS = 30;
             renderer.Background = mBackTexture;
 
             renderer.Start();
@@ -58,6 +58,20 @@ namespace KuhlEngineTester
             uuid.Add("ObjectAbove", renderer.CreateItem());
             uuid.Add("ObjectBelow", renderer.CreateItem());
 
+            // object benchmarker
+            //for(int i = 0; i < 100; i++)
+            //{
+            //    uuid.Add("TestItem" + i.ToString(), renderer.CreateItem());
+            //    Item itm = renderer.GetItem(uuid["TestItem" + i.ToString()]);
+            //    itm.Texture = new Texture(243, 123, 84);
+            //    itm.Width = 100;
+            //    itm.Height = 100;
+            //    itm.X = i;
+            //    itm.Y = i;
+            //    itm.Visible = true;
+            //    renderer.SetItem(uuid["TestItem" + i.ToString()], itm);
+            //}
+
             Item item = renderer.GetItem(uuid["WallTop"]);
             item.Texture = new Texture(125, 0, 125, 126);
             item.Texture.Stretch = false;
@@ -67,7 +81,7 @@ namespace KuhlEngineTester
             renderer.SetItem(uuid["WallTop"], item);
 
             item = renderer.GetItem(uuid["WallBottom"]);
-            item.Texture = new Texture(125,0,125);
+            item.Texture = new Texture(125, 0, 125);
             item.Texture.Stretch = false;
             item.Y = 288;
             item.Width = 640;
@@ -278,14 +292,50 @@ namespace KuhlEngineTester
 
         private void tmrjump_Tick(object sender, EventArgs e)
         {
-            if(jump < 8)
+            if (jump < 3)
             {
                 Item item = renderer.GetItem(uuid["Player"]);
                 item.Y = item.Y - 7;
                 renderer.SetItem(uuid["Player"], item);
                 jump++;
             }
-            else if(jump < 16)
+            else if(jump < 6)
+            {
+                Item item = renderer.GetItem(uuid["Player"]);
+                item.Y = item.Y - 5;
+                renderer.SetItem(uuid["Player"], item);
+                jump++;
+            }
+            else if(jump < 8)
+            {
+                Item item = renderer.GetItem(uuid["Player"]);
+                item.Y = item.Y - 3;
+                renderer.SetItem(uuid["Player"], item);
+                jump++;
+
+            }
+            else if (jump < 10)
+            {
+                jump++;
+
+            }
+            else if (jump < 12)
+            {
+                Item item = renderer.GetItem(uuid["Player"]);
+                item.Y = item.Y + 3;
+                renderer.SetItem(uuid["Player"], item);
+                jump++;
+
+            }
+            else if (jump < 15)
+            {
+                Item item = renderer.GetItem(uuid["Player"]);
+                item.Y = item.Y + 5;
+                renderer.SetItem(uuid["Player"], item);
+                jump++;
+
+            }
+            else if(jump < 18)
             {
                 Item item = renderer.GetItem(uuid["Player"]);
                 item.Y = item.Y + 7;
