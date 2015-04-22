@@ -24,6 +24,7 @@ namespace KuhlEngineTester
 
         Texture mBackTexture;
         private int mFPS;
+        private int jump = 0;
 
         public Form1()
         {
@@ -208,6 +209,10 @@ namespace KuhlEngineTester
             {
                 tmrdown.Enabled = true;
             }
+            if(e.KeyCode == Keys.Space)
+            {
+                if(jump == 0) tmrjump.Enabled = true;
+            }
         }
 
         private void Form1_KeyUp(object sender, KeyEventArgs e)
@@ -252,6 +257,29 @@ namespace KuhlEngineTester
             //item.FlipX = false;
             item.Y = item.Y + 2;
             renderer.SetItem(uuid["Player"], item);
+        }
+
+        private void tmrjump_Tick(object sender, EventArgs e)
+        {
+            if(jump < 8)
+            {
+                Item item = renderer.GetItem(uuid["Player"]);
+                item.Y = item.Y - 7;
+                renderer.SetItem(uuid["Player"], item);
+                jump++;
+            }
+            else if(jump < 16)
+            {
+                Item item = renderer.GetItem(uuid["Player"]);
+                item.Y = item.Y + 7;
+                renderer.SetItem(uuid["Player"], item);
+                jump++;
+            }
+            else
+            {
+                jump = 0;
+                tmrjump.Enabled = false;
+            }
         }
 
     }

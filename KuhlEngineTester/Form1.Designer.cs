@@ -37,6 +37,7 @@
             this.tmrright = new System.Windows.Forms.Timer(this.components);
             this.tmrup = new System.Windows.Forms.Timer(this.components);
             this.tmrdown = new System.Windows.Forms.Timer(this.components);
+            this.tmrjump = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -93,6 +94,11 @@
             this.tmrdown.Interval = 10;
             this.tmrdown.Tick += new System.EventHandler(this.tmrdown_Tick);
             // 
+            // tmrjump
+            // 
+            this.tmrjump.Interval = 10;
+            this.tmrjump.Tick += new System.EventHandler(this.tmrjump_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -125,6 +131,7 @@
         private System.Windows.Forms.Timer tmrright;
         private System.Windows.Forms.Timer tmrup;
         private System.Windows.Forms.Timer tmrdown;
+        private System.Windows.Forms.Timer tmrjump;
     }
 }
 
