@@ -25,9 +25,6 @@ namespace KuhlEngineTester
         Texture mBackTexture;
         private int mFPS;
 
-        //Image gifImage = new Bitmap(@"C:\Users\Roll\Desktop\1.gif");
-        int currentFrame = -1;
-
         public Form1()
         {
             InitializeComponent();
