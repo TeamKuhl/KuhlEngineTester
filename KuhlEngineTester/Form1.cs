@@ -95,8 +95,8 @@ namespace KuhlEngineTester
             item.Texture = playerTexture;
             item.Y = 54;
             item.X = 32;
-            item.Width = 32;
-            item.Height = 54;
+            item.Width = 100;
+            item.Height = 100;
             item.Visible = true;
             item.Layer = 5;
             renderer.SetItem(uuid["Player"], item);
@@ -188,6 +188,7 @@ namespace KuhlEngineTester
             Item item = renderer.GetItem(uuid["Player"]);
             //item.FlipX = false;
             item.X = item.X + 2;
+            if (jump > 0) item.X = item.X + 3;
             renderer.SetItem(uuid["Player"], item);
         }
 
@@ -240,6 +241,7 @@ namespace KuhlEngineTester
             Item item = renderer.GetItem(uuid["Player"]);
             //item.FlipX = false;
             item.X = item.X - 2;
+            if (jump > 0) item.X = item.X - 3;
             renderer.SetItem(uuid["Player"], item);
         }
 
