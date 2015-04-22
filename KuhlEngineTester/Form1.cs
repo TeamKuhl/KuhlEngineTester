@@ -204,6 +204,7 @@ namespace KuhlEngineTester
             //item.FlipX = false;
             item.X = item.X + 2;
             if (jump > 0) item.X = item.X + 3;
+            if (item.X > renderer.Width) item.X = -item.Width;
             renderer.SetItem(uuid["Player"], item);
         }
 
@@ -271,6 +272,7 @@ namespace KuhlEngineTester
             //item.FlipX = false;
             item.X = item.X - 2;
             if (jump > 0) item.X = item.X - 3;
+            if (item.X < -item.Width) item.X = renderer.Width;
             renderer.SetItem(uuid["Player"], item);
         }
 
@@ -279,6 +281,7 @@ namespace KuhlEngineTester
             Item item = renderer.GetItem(uuid["Player"]);
             //item.FlipX = false;
             item.Y = item.Y - 2;
+            if (item.Y < -item.Height) item.Y = renderer.Height;
             renderer.SetItem(uuid["Player"], item);
         }
         
@@ -287,6 +290,7 @@ namespace KuhlEngineTester
             Item item = renderer.GetItem(uuid["Player"]);
             //item.FlipX = false;
             item.Y = item.Y + 2;
+            if (item.Y > renderer.Height) item.Y = -item.Height;
             renderer.SetItem(uuid["Player"], item);
         }
 
