@@ -58,7 +58,8 @@ namespace KuhlEngineTester
             uuid.Add("Player", renderer.CreateItem());
 
             Item item = renderer.GetItem(uuid["WallTop"]);
-            item.Texture = wallTexture;
+            item.Texture = new Texture(125, 0, 125, 126);
+            item.Texture.Stretch = false;
             item.Width = 640;
             item.Height = 32;
             item.Visible = true;
