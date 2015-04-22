@@ -25,6 +25,7 @@ namespace KuhlEngineTester
         Texture mBackTexture;
         private int mFPS;
         private int jump = 0;
+        private bool toRight = true;
 
         public Form1()
         {
@@ -196,10 +197,24 @@ namespace KuhlEngineTester
         {
             if (e.KeyValue == 39)
             {
+                if(!toRight)
+                {
+                    Item item = renderer.GetItem(uuid["Player"]);
+                    item.Texture.FlipX();
+                    renderer.SetItem(uuid["Player"], item);
+                    toRight = true;
+                }
                 tmrleft.Enabled = true;
             }
             if (e.KeyValue == 37)
             {
+                if (toRight)
+                {
+                    Item item = renderer.GetItem(uuid["Player"]);
+                    item.Texture.FlipX();
+                    renderer.SetItem(uuid["Player"], item);
+                    toRight = false;
+                }
                 tmrright.Enabled = true;
             }
             if (e.KeyValue == 38)
