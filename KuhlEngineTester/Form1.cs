@@ -20,7 +20,7 @@ namespace KuhlEngineTester
         public delegate void emptyFunction();
 
         Renderer renderer = new Renderer();
-        string uuid;
+        Dictionary<string, string> uuid = new Dictionary<string, string>();
 
         Texture mBackTexture;
         private int mFPS;
@@ -37,30 +37,67 @@ namespace KuhlEngineTester
         {
             label1.Parent = pictureBox1;
             Renderer.newFrame += new Renderer.RenderHandler(rendererEvent);
-            mBackTexture = new Texture(@"E:\Eigene Daten\Pictures\rw3\current-rw3.jpg");
-            mBackTexture.Stretch = true;
+            mBackTexture = new Texture(KuhlEngineTester.Properties.Resources.ground);
+            mBackTexture.Stretch = false;
 
-            renderer.Width = 300;
-            renderer.Height = 300;
+            renderer.Width = 640;
+            renderer.Height = 320;
             renderer.FPS = 60;
             renderer.Background = mBackTexture;
 
             renderer.Start();
 
-            uuid = renderer.CreateItem();
+            Texture playerTexture = new Texture(KuhlEngineTester.Properties.Resources.player);
+            Texture wallTexture = new Texture(KuhlEngineTester.Properties.Resources.wall);
+            wallTexture.Stretch = false;
 
-            Item item = renderer.GetItem(uuid);
+            uuid.Add("Player", renderer.CreateItem());
+            uuid.Add("WallTop", renderer.CreateItem());
+            uuid.Add("WallBottom", renderer.CreateItem());
+            uuid.Add("WallRight", renderer.CreateItem());
+            uuid.Add("WallLeft", renderer.CreateItem());
 
-            item.Texture = new Texture(@"C:\Users\Roll\Desktop\1.gif");
-            item.Texture.Stretch = true;
-            item.X = 34;
-            item.Y = 68;
-            item.Width = 15;
-            item.Height = 15;
+
+            Item item = renderer.GetItem(uuid["WallTop"]);
+            item.Texture = wallTexture;
+            item.Width = 640;
+            item.Height = 32;
             item.Visible = true;
+            renderer.SetItem(uuid["WallTop"], item);
 
-            renderer.SetItem(uuid, item);              
+            item = renderer.GetItem(uuid["WallBottom"]);
+            item.Texture = wallTexture;
+            item.Y = 288;
+            item.Width = 640;
+            item.Height = 32;
+            item.Visible = true;
+            renderer.SetItem(uuid["WallBottom"], item);
 
+            item = renderer.GetItem(uuid["WallRight"]);
+            item.Texture = wallTexture;
+            item.Y = 32;
+            item.X = 608;
+            item.Width = 32;
+            item.Height = 256;
+            item.Visible = true;
+            renderer.SetItem(uuid["WallRight"], item);
+
+            item = renderer.GetItem(uuid["WallLeft"]);
+            item.Texture = wallTexture;
+            item.Y = 32;
+            item.Width = 32;
+            item.Height = 256;
+            item.Visible = true;
+            renderer.SetItem(uuid["WallLeft"], item);
+
+            item = renderer.GetItem(uuid["Player"]);
+            item.Texture = playerTexture;
+            item.Y = 54;
+            item.X = 32;
+            item.Width = 32;
+            item.Height = 54;
+            item.Visible = true;
+            renderer.SetItem(uuid["Player"], item);
         }
 
         private void rendererEvent(Image aFrame)
@@ -117,23 +154,26 @@ namespace KuhlEngineTester
             */
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             Environment.Exit(0);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Form1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            for (int i = 15; i < 150; i++)
+            if (e.KeyChar == 'd')
             {
-                renderer.SetItemSize(uuid, i, i);
-                Application.DoEvents();
-                Thread.Sleep(10);
+                Item item = renderer.GetItem(uuid["Player"]);
+                //item.FlipX = false;
+                item.X = item.X + 32;
+                renderer.SetItem(uuid["Player"], item);
+            }
+            if (e.KeyChar == 'a')
+            {
+                Item item = renderer.GetItem(uuid["Player"]);
+                //item.FlipX = true;
+                item.X = item.X - 32;
+                renderer.SetItem(uuid["Player"], item);
             }
         }
     }
