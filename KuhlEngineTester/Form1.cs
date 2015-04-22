@@ -65,7 +65,8 @@ namespace KuhlEngineTester
             renderer.SetItem(uuid["WallTop"], item);
 
             item = renderer.GetItem(uuid["WallBottom"]);
-            item.Texture = wallTexture;
+            item.Texture = new Texture(125,0,125);
+            item.Texture.Stretch = false;
             item.Y = 288;
             item.Width = 640;
             item.Height = 32;
