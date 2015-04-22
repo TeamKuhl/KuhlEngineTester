@@ -35,6 +35,8 @@
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.tmrleft = new System.Windows.Forms.Timer(this.components);
             this.tmrright = new System.Windows.Forms.Timer(this.components);
+            this.tmrup = new System.Windows.Forms.Timer(this.components);
+            this.tmrdown = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -81,13 +83,23 @@
             this.tmrright.Interval = 10;
             this.tmrright.Tick += new System.EventHandler(this.tmrright_Tick);
             // 
+            // tmrup
+            // 
+            this.tmrup.Interval = 10;
+            this.tmrup.Tick += new System.EventHandler(this.tmrup_Tick);
+            // 
+            // tmrdown
+            // 
+            this.tmrdown.Interval = 10;
+            this.tmrdown.Tick += new System.EventHandler(this.tmrdown_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(207, 175);
+            this.ClientSize = new System.Drawing.Size(171, 72);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -111,6 +123,8 @@
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.Timer tmrleft;
         private System.Windows.Forms.Timer tmrright;
+        private System.Windows.Forms.Timer tmrup;
+        private System.Windows.Forms.Timer tmrdown;
     }
 }
 

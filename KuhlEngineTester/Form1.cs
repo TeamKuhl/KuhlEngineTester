@@ -39,7 +39,7 @@ namespace KuhlEngineTester
 
             renderer.Width = 640;
             renderer.Height = 320;
-            renderer.FPS = 60;
+            renderer.FPS = 100;
             renderer.Background = mBackTexture;
 
             renderer.Start();
@@ -101,7 +101,7 @@ namespace KuhlEngineTester
             renderer.SetItem(uuid["Player"], item);
 
             item = renderer.GetItem(uuid["ObjectAbove"]);
-            item.Texture = new Texture(125, 0, 0);
+            item.Texture = new Texture(125, 0, 0, 200);
             item.Texture.Stretch = false;
             item.Y = 54;
             item.X = 200;
@@ -200,6 +200,14 @@ namespace KuhlEngineTester
             {
                 tmrright.Enabled = true;
             }
+            if (e.KeyValue == 38)
+            {
+                tmrup.Enabled = true;
+            }
+            if (e.KeyValue == 40)
+            {
+                tmrdown.Enabled = true;
+            }
         }
 
         private void Form1_KeyUp(object sender, KeyEventArgs e)
@@ -212,6 +220,14 @@ namespace KuhlEngineTester
             {
                 tmrright.Enabled = false;
             }
+            if (e.KeyValue == 38)
+            {
+                tmrup.Enabled = false;
+            }
+            if (e.KeyValue == 40)
+            {
+                tmrdown.Enabled = false;
+            }
         }
 
         private void tmrright_Tick(object sender, EventArgs e)
@@ -219,6 +235,22 @@ namespace KuhlEngineTester
             Item item = renderer.GetItem(uuid["Player"]);
             //item.FlipX = false;
             item.X = item.X - 2;
+            renderer.SetItem(uuid["Player"], item);
+        }
+
+        private void tmrup_Tick(object sender, EventArgs e)
+        {
+            Item item = renderer.GetItem(uuid["Player"]);
+            //item.FlipX = false;
+            item.Y = item.Y - 2;
+            renderer.SetItem(uuid["Player"], item);
+        }
+        
+        private void tmrdown_Tick(object sender, EventArgs e)
+        {
+            Item item = renderer.GetItem(uuid["Player"]);
+            //item.FlipX = false;
+            item.Y = item.Y + 2;
             renderer.SetItem(uuid["Player"], item);
         }
 
