@@ -56,6 +56,8 @@ namespace KuhlEngineTester
             uuid.Add("WallRight", renderer.CreateItem());
             uuid.Add("WallLeft", renderer.CreateItem());
             uuid.Add("Player", renderer.CreateItem());
+            uuid.Add("ObjectAbove", renderer.CreateItem());
+            uuid.Add("ObjectBelow", renderer.CreateItem());
 
             Item item = renderer.GetItem(uuid["WallTop"]);
             item.Texture = new Texture(125, 0, 125, 126);
@@ -98,7 +100,30 @@ namespace KuhlEngineTester
             item.Width = 32;
             item.Height = 54;
             item.Visible = true;
+            item.Layer = 5;
             renderer.SetItem(uuid["Player"], item);
+
+            item = renderer.GetItem(uuid["ObjectAbove"]);
+            item.Texture = new Texture(125, 0, 0);
+            item.Texture.Stretch = false;
+            item.Y = 54;
+            item.X = 200;
+            item.Width = 54;
+            item.Height = 54;
+            item.Visible = true;
+            item.Layer = 6;
+            renderer.SetItem(uuid["ObjectAbove"], item);
+
+            item = renderer.GetItem(uuid["ObjectBelow"]);
+            item.Texture = new Texture(0, 125, 0);
+            item.Texture.Stretch = false;
+            item.Y = 54;
+            item.X = 300;
+            item.Width = 54;
+            item.Height = 54;
+            item.Visible = true;
+            item.Layer = 4;
+            renderer.SetItem(uuid["ObjectBelow"], item);
         }
 
         private void rendererEvent(Image aFrame)
