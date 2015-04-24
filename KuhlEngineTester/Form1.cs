@@ -35,8 +35,8 @@ namespace KuhlEngineTester
         private void Form1_Load(object sender, EventArgs e)
         {
             label1.Parent = pictureBox1;
-            Renderer.newFrame += new Renderer.RenderHandler(rendererEvent);
-            Renderer.Collision += new Renderer.CollisionHandler(collisionEvent);
+            Event.NewFrame += new Event.RenderHandler(rendererEvent);
+            Event.Collision += new Event.CollisionHandler(collisionEvent);
             mBackTexture = new Texture(KuhlEngineTester.Properties.Resources.ground);
             mBackTexture.Stretch = false;
 
@@ -58,6 +58,7 @@ namespace KuhlEngineTester
             uuid.Add("Player", renderer.CreateItem());
             uuid.Add("ObjectAbove", renderer.CreateItem());
             uuid.Add("ObjectBelow", renderer.CreateItem());
+            uuid.Add("Platform", renderer.CreateItem());
 
             // object benchmarker
             //for(int i = 0; i < 100; i++)
@@ -69,7 +70,8 @@ namespace KuhlEngineTester
             //    itm.Height = 100;
             //    itm.X = i;
             //    itm.Y = i;
-            //    itm.Visible = true;
+            //    itm.Enabled = true;
+            //    itm.CheckCollision = true;
             //    renderer.SetItem(uuid["TestItem" + i.ToString()], itm);
             //}
 
@@ -78,7 +80,8 @@ namespace KuhlEngineTester
             item.Texture.Stretch = false;
             item.Width = 640;
             item.Height = 32;
-            item.Visible = true;
+            item.Enabled = true;
+            item.CheckCollision = true;
             renderer.SetItem(uuid["WallTop"], item);
 
             item = renderer.GetItem(uuid["WallBottom"]);
@@ -87,8 +90,20 @@ namespace KuhlEngineTester
             item.Y = 288;
             item.Width = 640;
             item.Height = 32;
-            item.Visible = true;
+            item.Enabled = true;
+            item.CheckCollision = true;
             renderer.SetItem(uuid["WallBottom"], item);
+
+            item = renderer.GetItem(uuid["Platform"]);
+            item.Texture = new Texture(123, 84, 3);
+            item.Texture.Stretch = false;
+            item.Y = 250;
+            item.X = 320;
+            item.Width = 288;
+            item.Height = 32;
+            item.Enabled = true;
+            item.CheckCollision = true;
+            renderer.SetItem(uuid["Platform"], item);
 
             item = renderer.GetItem(uuid["WallRight"]);
             item.Texture = wallTexture;
@@ -96,7 +111,8 @@ namespace KuhlEngineTester
             item.X = 608;
             item.Width = 32;
             item.Height = 256;
-            item.Visible = true;
+            item.Enabled = true;
+            item.CheckCollision = true;
             renderer.SetItem(uuid["WallRight"], item);
 
             item = renderer.GetItem(uuid["WallLeft"]);
@@ -104,17 +120,19 @@ namespace KuhlEngineTester
             item.Y = 32;
             item.Width = 32;
             item.Height = 256;
-            item.Visible = true;
+            item.Enabled = true;
+            item.CheckCollision = true;
             renderer.SetItem(uuid["WallLeft"], item);
 
             item = renderer.GetItem(uuid["Player"]);
             item.Texture = playerTexture;
-            item.Y = 54;
+            item.Y = 188;
             item.X = 32;
             item.Width = 100;
             item.Height = 100;
-            item.Visible = true;
+            item.Enabled = true;
             item.Layer = 5;
+            item.CheckCollision = true;
             renderer.SetItem(uuid["Player"], item);
 
             item = renderer.GetItem(uuid["ObjectAbove"]);
@@ -124,8 +142,9 @@ namespace KuhlEngineTester
             item.X = 200;
             item.Width = 54;
             item.Height = 54;
-            item.Visible = true;
+            item.Enabled = true;
             item.Layer = 6;
+            item.CheckCollision = true;
             renderer.SetItem(uuid["ObjectAbove"], item);
 
             item = renderer.GetItem(uuid["ObjectBelow"]);
@@ -135,8 +154,9 @@ namespace KuhlEngineTester
             item.X = 300;
             item.Width = 54;
             item.Height = 54;
-            item.Visible = true;
+            item.Enabled = true;
             item.Layer = 4;
+            item.CheckCollision = true;
             renderer.SetItem(uuid["ObjectBelow"], item);
         }
 
@@ -156,12 +176,9 @@ namespace KuhlEngineTester
 
         }
 
-        private void collisionEvent(string aUUID1, string aUUID2)
+        private void collisionEvent(CollisionEventArgs e)
         {
-            if (this.InvokeRequired) this.Invoke(new emptyFunction(delegate()
-                {
-                    //MessageBox.Show("Kollision");
-                }));
+            e.Cancel = true;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -211,9 +228,9 @@ namespace KuhlEngineTester
             Item item = renderer.GetItem(uuid["Player"]);
             //item.FlipX = false;
             item.X = item.X + 2;
-            if (jump > 0) item.X = item.X + 3;
+            if (jump > 0) item.X = item.X + 6;
             if (item.X > renderer.Width) item.X = -item.Width;
-            renderer.SetItem(uuid["Player"], item);
+            if(!renderer.SetItemPosition(uuid["Player"], item.X, item.Y)) tmrleft.Enabled = false;
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -279,27 +296,27 @@ namespace KuhlEngineTester
             Item item = renderer.GetItem(uuid["Player"]);
             //item.FlipX = false;
             item.X = item.X - 2;
-            if (jump > 0) item.X = item.X - 3;
+            if (jump > 0) item.X = item.X - 6;
             if (item.X < -item.Width) item.X = renderer.Width;
             renderer.SetItem(uuid["Player"], item);
         }
 
         private void tmrup_Tick(object sender, EventArgs e)
         {
-            Item item = renderer.GetItem(uuid["Player"]);
-            //item.FlipX = false;
-            item.Y = item.Y - 2;
-            if (item.Y < -item.Height) item.Y = renderer.Height;
-            renderer.SetItem(uuid["Player"], item);
+            //Item item = renderer.GetItem(uuid["Player"]);
+            ////item.FlipX = false;
+            //item.Y = item.Y - 2;
+            //if (item.Y < -item.Height) item.Y = renderer.Height;
+            //renderer.SetItem(uuid["Player"], item);
         }
 
         private void tmrdown_Tick(object sender, EventArgs e)
         {
-            Item item = renderer.GetItem(uuid["Player"]);
-            //item.FlipX = false;
-            item.Y = item.Y + 2;
-            if (item.Y > renderer.Height) item.Y = -item.Height;
-            renderer.SetItem(uuid["Player"], item);
+            //Item item = renderer.GetItem(uuid["Player"]);
+            ////item.FlipX = false;
+            //item.Y = item.Y + 2;
+            //if (item.Y > renderer.Height) item.Y = -item.Height;
+            //renderer.SetItem(uuid["Player"], item);
         }
 
         private void tmrjump_Tick(object sender, EventArgs e)
@@ -307,21 +324,21 @@ namespace KuhlEngineTester
             if (jump < 3)
             {
                 Item item = renderer.GetItem(uuid["Player"]);
-                item.Y = item.Y - 7;
+                item.Y = item.Y - 14;
                 renderer.SetItem(uuid["Player"], item);
                 jump++;
             }
             else if (jump < 6)
             {
                 Item item = renderer.GetItem(uuid["Player"]);
-                item.Y = item.Y - 5;
+                item.Y = item.Y - 10;
                 renderer.SetItem(uuid["Player"], item);
                 jump++;
             }
             else if (jump < 8)
             {
                 Item item = renderer.GetItem(uuid["Player"]);
-                item.Y = item.Y - 3;
+                item.Y = item.Y - 6;
                 renderer.SetItem(uuid["Player"], item);
                 jump++;
 
@@ -334,7 +351,7 @@ namespace KuhlEngineTester
             else if (jump < 12)
             {
                 Item item = renderer.GetItem(uuid["Player"]);
-                item.Y = item.Y + 3;
+                item.Y = item.Y + 6;
                 renderer.SetItem(uuid["Player"], item);
                 jump++;
 
@@ -342,7 +359,7 @@ namespace KuhlEngineTester
             else if (jump < 15)
             {
                 Item item = renderer.GetItem(uuid["Player"]);
-                item.Y = item.Y + 5;
+                item.Y = item.Y + 10;
                 renderer.SetItem(uuid["Player"], item);
                 jump++;
 
@@ -350,7 +367,7 @@ namespace KuhlEngineTester
             else if (jump < 18)
             {
                 Item item = renderer.GetItem(uuid["Player"]);
-                item.Y = item.Y + 7;
+                item.Y = item.Y + 14;
                 renderer.SetItem(uuid["Player"], item);
                 jump++;
             }
