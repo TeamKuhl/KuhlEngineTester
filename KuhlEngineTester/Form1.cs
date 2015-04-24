@@ -42,7 +42,7 @@ namespace KuhlEngineTester
 
             renderer.Width = 640;
             renderer.Height = 320;
-            renderer.FPS = 30;
+            renderer.FPS = 60;
             renderer.Background = mBackTexture;
 
             renderer.Start();
