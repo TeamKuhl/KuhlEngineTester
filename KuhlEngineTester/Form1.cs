@@ -44,7 +44,7 @@ namespace KuhlEngineTester
             renderer.Height = 320;
             renderer.FPS = 60;
             renderer.Background = mBackTexture;
-
+            //renderer.SetCamera(32, 32, 608, 288);
             renderer.Start();
 
             Texture playerTexture = new Texture(KuhlEngineTester.Properties.Resources.player);
