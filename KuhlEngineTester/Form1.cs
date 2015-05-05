@@ -59,6 +59,7 @@ namespace KuhlEngineTester
             uuid.Add("ObjectAbove", renderer.CreateItem().Uuid);
             uuid.Add("ObjectBelow", renderer.CreateItem().Uuid);
             uuid.Add("Platform", renderer.CreateItem().Uuid);
+            uuid.Add("Text", renderer.CreateItem().Uuid);
 
             // object benchmarker
             //for(int i = 0; i < 100; i++)
@@ -158,6 +159,20 @@ namespace KuhlEngineTester
             item.Layer = 4;
             item.CheckCollision = true;
             renderer.SetItem(item);
+
+
+            item = renderer.GetItem(uuid["Text"]);
+            FontFamily fontFamily = new FontFamily("Arial");
+            Font font = new Font(fontFamily, 20, FontStyle.Bold, GraphicsUnit.Pixel);
+            item.Texture = new Texture("Dies ist ein Text", font, Color.Black);
+            item.Texture.Stretch = false;
+            item.Y = 33;
+            item.X = 33;
+            item.Width = 160;
+            item.Height = 25;
+            item.Enabled = true;
+            item.CheckCollision = false;
+            renderer.SetItem(item);
         }
 
         private void rendererEvent(Image aFrame)
@@ -230,7 +245,7 @@ namespace KuhlEngineTester
             item.X = item.X + 2;
             if (jump > 0) item.X = item.X + 6;
             if (item.X > renderer.Width) item.X = -item.Width;
-            if(!renderer.SetItemPosition(uuid["Player"], item.X, item.Y)) tmrleft.Enabled = false;
+            if (!renderer.SetItemPosition(uuid["Player"], item.X, item.Y)) tmrleft.Enabled = false;
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
