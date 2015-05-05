@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using KuhlEngine;
+using System.Drawing.Drawing2D;
 
 using System.IO;
 using System.Threading;
@@ -40,11 +41,20 @@ namespace KuhlEngineTester
             mBackTexture = new Texture(KuhlEngineTester.Properties.Resources.ground);
             mBackTexture.Stretch = false;
 
+            renderer.Background = mBackTexture;
             renderer.Width = 640;
             renderer.Height = 320;
             renderer.FPS = 60;
-            renderer.Background = mBackTexture;
-            //renderer.SetCamera(32, 32, 608, 288);
+            
+            //renderer.SetCamera(32, 32, 160, 80);
+
+            //High quallity
+            //renderer.SmoothingMode = SmoothingMode.AntiAlias;
+            //renderer.InterpolationMode = InterpolationMode.Bilinear;
+            //renderer.CompositingQuality = CompositingQuality.HighQuality;
+            //renderer.PixelOffsetMode = PixelOffsetMode.HighQuality;
+            //renderer.ForceGarbageCollector = true;
+            //
             renderer.Start();
 
             Texture playerTexture = new Texture(KuhlEngineTester.Properties.Resources.player);
