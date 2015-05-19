@@ -45,7 +45,7 @@ namespace KuhlEngineTester
             renderer.Width = 640;
             renderer.Height = 320;
             renderer.FPS = 60;
-            
+
             //renderer.SetCamera(32, 32, 160, 80);
 
             //High quallity
@@ -55,9 +55,12 @@ namespace KuhlEngineTester
             //renderer.PixelOffsetMode = PixelOffsetMode.HighQuality;
             //renderer.ForceGarbageCollector = true;
             //
-            renderer.Start();
+            
 
             Texture playerTexture = new Texture(KuhlEngineTester.Properties.Resources.player);
+            FrameDimension dimension = new FrameDimension(playerTexture.Image.FrameDimensionsList[0]); //gets the GUID
+            int frameCount = playerTexture.Image.GetFrameCount(dimension);
+
             Texture wallTexture = new Texture(KuhlEngineTester.Properties.Resources.wall);
             wallTexture.Stretch = false;
 
@@ -93,6 +96,7 @@ namespace KuhlEngineTester
             item.Height = 32;
             item.Enabled = true;
             item.CheckCollision = true;
+            item.Layer = 6;
             renderer.SetItem(item);
 
             item = renderer.GetItem(uuid["WallBottom"]);
@@ -103,6 +107,7 @@ namespace KuhlEngineTester
             item.Height = 32;
             item.Enabled = true;
             item.CheckCollision = true;
+            item.Layer = 6;
             renderer.SetItem(item);
 
             item = renderer.GetItem(uuid["Platform"]);
@@ -114,6 +119,7 @@ namespace KuhlEngineTester
             item.Height = 32;
             item.Enabled = true;
             item.CheckCollision = true;
+            item.Layer = 6;
             renderer.SetItem(item);
 
             item = renderer.GetItem(uuid["WallRight"]);
@@ -124,6 +130,7 @@ namespace KuhlEngineTester
             item.Height = 256;
             item.Enabled = true;
             item.CheckCollision = true;
+            item.Layer = 6;
             renderer.SetItem(item);
 
             item = renderer.GetItem(uuid["WallLeft"]);
@@ -133,6 +140,7 @@ namespace KuhlEngineTester
             item.Height = 256;
             item.Enabled = true;
             item.CheckCollision = true;
+            item.Layer = 6;
             renderer.SetItem(item);
 
             item = renderer.GetItem(uuid["Player"]);
@@ -142,8 +150,9 @@ namespace KuhlEngineTester
             item.Width = 100;
             item.Height = 100;
             item.Enabled = true;
-            item.Layer = 5;
+            item.Layer = 1;
             item.CheckCollision = true;
+            item.mGIF = true;
             renderer.SetItem(item);
 
             item = renderer.GetItem(uuid["ObjectAbove"]);
@@ -182,7 +191,10 @@ namespace KuhlEngineTester
             item.Height = 25;
             item.Enabled = true;
             item.CheckCollision = false;
+            item.Layer = 6;
             renderer.SetItem(item);
+
+            renderer.Start();
         }
 
         private void rendererEvent(Image aFrame)
@@ -220,27 +232,27 @@ namespace KuhlEngineTester
 
 
         private void renderGif()
-        {/*
-            FrameDimension dimension = new FrameDimension(gifImage.FrameDimensionsList[0]);
-            int frameCount = gifImage.GetFrameCount(dimension);
+        {
+        //    FrameDimension dimension = new FrameDimension(gifImage.FrameDimensionsList[0]);
+        //    int frameCount = gifImage.GetFrameCount(dimension);
 
-            currentFrame += 1;
+        //    currentFrame += 1;
 
-            if (currentFrame >= frameCount)
-            {
-                currentFrame = Math.Abs(currentFrame - frameCount);
-            }
-            gifImage.SelectActiveFrame(dimension, currentFrame);
-            Bitmap curGif = new Bitmap(gifImage.Width, gifImage.Height);
+        //    if (currentFrame >= frameCount)
+        //    {
+        //        currentFrame = Math.Abs(currentFrame - frameCount);
+        //    }
+        //    gifImage.SelectActiveFrame(dimension, currentFrame);
+        //    Bitmap curGif = new Bitmap(gifImage.Width, gifImage.Height);
 
-            Graphics g = Graphics.FromImage(curGif);
-            g.DrawImage((Bitmap)gifImage.Clone(), new Point(0, 0));
-            g.Dispose();
+        //    Graphics g = Graphics.FromImage(curGif);
+        //    g.DrawImage((Bitmap)gifImage.Clone(), new Point(0, 0));
+        //    g.Dispose();
 
-            pictureBox1.Width = gifImage.Width;
-            pictureBox1.Height = gifImage.Height;
-            pictureBox1.Image = curGif;
-            */
+        //    pictureBox1.Width = gifImage.Width;
+        //    pictureBox1.Height = gifImage.Height;
+        //    pictureBox1.Image = curGif;
+            
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
